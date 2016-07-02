@@ -1,0 +1,14 @@
+#sheet1,
+#sheet2{
+	display: inline-block
+}
+
+.top{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+#select1,
+#select2{
+	width:400px;
+}
