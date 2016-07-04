@@ -1,7 +1,7 @@
 /*
  * 初始化图表
  */
-function initGraph(data,type) {
+function initGraph(data, station) {
     // 作为入口
     require.config({
         paths: {
@@ -10,19 +10,20 @@ function initGraph(data,type) {
     });
     var option = {
         title : {
-            text : 'DC1_TG_现状配置表'
+            text : 'DC1-SS现状配置表 --- ' + station
         },
         tooltip : {
             trigger: 'axis'
         },
-        legend: {
-            data:['DC1-TG1','DC1-TG2']
-        },
+        //legend: {
+        //    data:['板卡数量（主用+备用）','固网电路域', '移动电路域(与固网电路域合并）', '扁平化HSS之间',
+        //            '电路域HSS之间', '固网扁平化LSS', 'ECP呼叫', 'C网扁平化TMSCe', '备用板卡数(容灾）', '空闲']
+        //},
         //calculable : true,
         xAxis : [
             {
                 type :  'category',
-                name :  '省份',
+                name :  '配置',
                 axisLabel: {
                     show: true,
                     interval: 'auto',
@@ -30,7 +31,8 @@ function initGraph(data,type) {
                         fontSize: 8
                     }
                 },
-                data : data.province
+                data : ['板卡数量（主用+备用）','固网电路域', '移动电路域(与固网电路域合并）', '扁平化HSS之间',
+                    '电路域HSS之间', '固网扁平化LSS', 'ECP呼叫', 'C网扁平化TMSCe', '备用板卡数(容灾）', '空闲']
             }
         ],
         yAxis : [
@@ -41,21 +43,6 @@ function initGraph(data,type) {
             }
         ],
         series : [
-            {
-                name:'DC1-TG1',
-                type:'bar',
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true,
-                            textStyle: {
-                                color: '#800080'
-                            }
-                        }
-                    }
-                },
-                data:data.DC1_TG1
-            },
             {
                 name:'DC1-TG2',
                 type:'bar',
@@ -69,7 +56,7 @@ function initGraph(data,type) {
                         }
                     }
                 },
-                data:data.DC1_TG2
+                data:data
             }
         ]
     };
@@ -86,18 +73,29 @@ function initGraph(data,type) {
     );
 }
 
+$('#stationSelect').change(function(){
+    var station = $('#stationSelect').val();
+    var showData = data.info[station];
+    initGraph(showData, station);
+});
 
+function initSelect(stations) {
+    $.each(stations, function(key, value) {
+        $('#stationSelect').append($('<option>', { value : value }).text(value));
+    });
+    var currentStation = stations[0]
+    initGraph(data.info[currentStation], currentStation);
+}
+
+data = null;
 $(function(){
     $.ajax({
         type    :  "get",
         url     :   "../php/responseHandle.php",
-        data    :   {table : "DC1_TG_config"},
-        success :   function(data) {
-            data = JSON.parse(data);
-            console.log(data.province);
-            console.log(data.DC1_TG1);
-            console.log(data.DC1_TG2);
-            initGraph(data);
+        data    :   {table : "DC1_SS_config"},
+        success :   function(res) {
+            data = JSON.parse(res);
+            initSelect(data.stations);
         },
         error   :   function(){
             alert("get data error");

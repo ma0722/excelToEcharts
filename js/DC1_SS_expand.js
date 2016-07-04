@@ -1,24 +1,25 @@
 /*
  * 初始化图表
  */
-function initGraph(data, station) {
+function initGraph(data, mySeries) {
     // 作为入口
     require.config({
         paths: {
             echarts: '../js/lib/echarts/dist'
         }
     });
+    var legend = data.keys;
+    legend.shift();
     var option = {
         title : {
-            text : 'DC1_SS_现状配置表 --- ' + station
+            text : 'DC1-SS 扩容需求表'
         },
         tooltip : {
             trigger: 'axis'
         },
-        //legend: {
-        //    data:['板卡数量（主用+备用）','固网电路域', '移动电路域(与固网电路域合并）', '扁平化HSS之间',
-        //            '电路域HSS之间', '固网扁平化LSS', 'ECP呼叫', 'C网扁平化TMSCe', '备用板卡数(容灾）', '空闲']
-        //},
+        legend: {
+            data: legend
+        },
         //calculable : true,
         xAxis : [
             {
@@ -31,8 +32,7 @@ function initGraph(data, station) {
                         fontSize: 8
                     }
                 },
-                data : ['板卡数量（主用+备用）','固网电路域', '移动电路域(与固网电路域合并）', '扁平化HSS之间',
-                    '电路域HSS之间', '固网扁平化LSS', 'ECP呼叫', 'C网扁平化TMSCe', '备用板卡数(容灾）', '空闲']
+                data : data.c0
             }
         ],
         yAxis : [
@@ -42,23 +42,7 @@ function initGraph(data, station) {
                 name :  '数目'
             }
         ],
-        series : [
-            {
-                name:'DC1-TG2',
-                type:'bar',
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true,
-                            textStyle: {
-                                color: '#800080'
-                            }
-                        }
-                    }
-                },
-                data:data
-            }
-        ]
+        series : mySeries
     };
     require(
         [
@@ -73,29 +57,48 @@ function initGraph(data, station) {
     );
 }
 
-$('#stationSelect').change(function(){
-    var station = $('#stationSelect').val();
-    var showData = data.info[station];
-    initGraph(showData, station);
-});
 
-function initSelect(stations) {
-    $.each(stations, function(key, value) {
-        $('#stationSelect').append($('<option>', { value : value }).text(value));
-    });
-    var currentStation = stations[0]
-    initGraph(data.info[currentStation], currentStation);
+function genSeries(data){
+    var $i = 1;
+    var keys = data.keys;
+    var serise = Array();
+    for ( ; ; $i++) {
+        var col = 'c' + $i;
+        tmp = data[col];
+        if ( tmp == undefined)
+            break;
+        var names  = data.keys;
+        var one = {
+            name: names[$i],
+            type:'bar',
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#800080'
+                        }
+                    }
+                }
+            },
+            data: data[col]
+        };
+        serise.push(one);
+    }
+    return serise;
 }
+
 
 data = null;
 $(function(){
     $.ajax({
         type    :  "get",
         url     :   "../php/responseHandle.php",
-        data    :   {table : "DC1_SS_config"},
+        data    :   {table : "DC1_SS_expand"},
         success :   function(res) {
             data = JSON.parse(res);
-            initSelect(data.stations);
+            var mySerise = genSeries(data);
+            initGraph(data, mySerise);
         },
         error   :   function(){
             alert("get data error");

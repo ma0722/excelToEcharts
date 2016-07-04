@@ -21,8 +21,8 @@
 	/*
 	 * 解析DC1-TG现表状配置
 	 */
-	function deal_DC1_TG_config(){
-		$sheetName = "DC1-TG扩容需求表";
+	function deal_DC1_TG_config($jsonTrue){
+		$sheetName = "DC1-TG现状配置表";
 		$sheet = getSheel($sheetName);
 		if (empty($sheet))
 			return null;
@@ -32,21 +32,28 @@
 		$startCol = "A";
 		$startRow = 3;
 
-
 		for ($row = $startRow; $row <= $highestRow; $row++) {
 			$col = $startCol;
-			$data[] = [
-				"省份" =>  $sheet->getCell($col.$row)->getValue(),
+			$data[$sheet->getCell($col.$row)->getValue()] = [
 				"DC1_TG1" => $sheet->getCell(++$col.$row)->getValue(),
-				"DC1_TG2" => $sheet->getCell(++$col.$row)->getValue()];
+				"DC1_TG2" => $sheet->getCell(++$col.$row)->getValue()
+			];
 		}
-		return $data;
+		if ($jsonTrue) {
+			return $data;
+		}else {
+			$res = array();
+			$res["province"] = array_keys($data);
+			$res['DC1_TG1'] = array_column($data, 'DC1_TG1');
+			$res['DC1_TG2'] = array_column($data, 'DC1_TG2');
+			return $res;
+		}
 	}
 
 	/*
 	 * 解析DC1-SS现表状配置
 	 */
-	function deal_DC1_SS_config(){
+	function deal_DC1_SS_config($jsonTrue){
 		$sheetName = "DC1-SS现状配置表";
 		$sheet = getSheel($sheetName);
 		if (empty($sheet))
@@ -56,10 +63,10 @@
 		$highestRow = $sheet->getHighestRow();
 		$startCol = "A";
 		$startRow = 4;
+
 		for ($row = $startRow; $row <= $highestRow; $row++) {
 			$col = $startCol;
-			$data[] = [
-				"局点" => $sheet->getCell($col.$row)->getValue(),
+			$data[$sheet->getCell($col.$row)->getValue()] = [
 				"板卡数量（主用+备用）" =>  $sheet->getCell(++$col.$row)->getValue(),
 				"固网电路域" =>  $sheet->getCell(++$col.$row)->getValue(),
 				"移动电路域(与固网电路域合并）" =>  $sheet->getCell(++$col.$row)->getValue(),
@@ -72,13 +79,24 @@
 				"空闲" =>  $sheet->getCell(++$col.$row)->getValue(),
 			];
 		}
-		return $data;
+		if ($jsonTrue){
+			return $data;
+		}else {
+			$res = array();
+			foreach ($data as $key => $value) {
+				$res[$key] = array_values($value);
+			}
+			$data = array();
+			$data['stations'] = array_keys($res);
+			$data['info'] = $res;
+			return $data;
+		}
 	}
 
 	/*
 	 * 解析DC1-TG扩容需求表
 	 */
-	function deal_DC1_TG_expand(){
+	function deal_DC1_TG_expand($jsonTrue){
 		$sheetName = "DC1-TG扩容需求表";
 		$sheet = getSheel($sheetName);
 		if (empty($sheet))
@@ -140,14 +158,37 @@
 
 			$data[] = $tmp;
 		}
-		echo json_encode($data);
-		return $data;
+		if ($jsonTrue){
+			return $data;
+		} else {
+			$res = array();
+			$res["provinces"] = array_column($data, "省份");
+			$info = array();
+			$row =$startRow;
+			$thisCol = ++$startCol;
+			for ($i = 0; $i < count($res["provinces"]); $i++) {
+				$tmp = array();
+				$col =$thisCol;
+				for ( ; $col <= $highestCol; $col++) {
+					$tmp[] = $sheet->getCell($col.$row)->getValue();
+				}
+				$info[$res["provinces"][$i]] = $tmp;
+				$row++;
+			}
+			$res["info"] = $info;
+			$res["Xvalue"] = ["DC1TG1可用中继", "DC1TG2可用中继"];
+			foreach ($expand as $key=>$value) {
+				foreach($value as $item)
+					$res["Xvalue"][] = $key.$item;
+			}
+			return $res;
+		}
 	}
 
 	/*
 	 * 解析DC1-SS扩容需求表
 	 */
-	function deal_DC1_SS_expand(){
+	function deal_DC1_SS_expand($jsonTrue){
 		$sheetName = "DC1-SS扩容需求表";
 		$sheet = getSheel($sheetName);
 		if (empty($sheet))
@@ -172,8 +213,18 @@
 			}
 			$data[] = $tmp;
 		}
-		echo json_encode($data);
-		return $data;
+		if ($jsonTrue) {
+			return $data;
+		}else {
+			$res = array();
+			$res['keys'] = array_keys($data[0]);
+			$i = 0;
+			foreach ($colNames as $colName) {
+				$res['c'.$i] = array_column($data, $colName);
+				$i ++;
+			}
+			return $res;
+		}
 	}
 
 ?>

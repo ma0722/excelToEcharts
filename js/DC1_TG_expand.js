@@ -1,25 +1,23 @@
 /*
  * 初始化图表
  */
-function initGraph(data, mySeries) {
+function initGraph(data, Xvalue, province) {
     // 作为入口
     require.config({
         paths: {
             echarts: '../js/lib/echarts/dist'
         }
     });
-    var legend = data.keys;
-    legend.shift();
     var option = {
         title : {
-            text : 'DC1-SS 扩容需求表'
+            text : 'DC1-TG 扩容需求表 --- ' + province
         },
         tooltip : {
             trigger: 'axis'
         },
-        legend: {
-            data: legend
-        },
+        //legend: {
+        //    data: legend
+        //},
         //calculable : true,
         xAxis : [
             {
@@ -32,7 +30,7 @@ function initGraph(data, mySeries) {
                         fontSize: 8
                     }
                 },
-                data : data.c0
+                data : Xvalue
             }
         ],
         yAxis : [
@@ -42,7 +40,23 @@ function initGraph(data, mySeries) {
                 name :  '数目'
             }
         ],
-        series : mySeries
+        series : [
+            {
+                name:'DC1-TG1',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#800080'
+                            }
+                        }
+                    }
+                },
+                data:data
+            }
+        ]
     };
     require(
         [
@@ -58,47 +72,29 @@ function initGraph(data, mySeries) {
 }
 
 
-function genSeries(data){
-    var $i = 1;
-    var keys = data.keys;
-    var serise = Array();
-    for ( ; ; $i++) {
-        var col = 'c' + $i;
-        tmp = data[col];
-        if ( tmp == undefined)
-            break;
-        var names  = data.keys;
-        var one = {
-            name: names[$i],
-            type:'bar',
-            itemStyle: {
-                normal: {
-                    label: {
-                        show: true,
-                        textStyle: {
-                            color: '#800080'
-                        }
-                    }
-                }
-            },
-            data: data[col]
-        };
-        serise.push(one);
-    }
-    return serise;
-}
+$('#provinceSelect').change(function(){
+    var province = $('#provinceSelect').val();
+    var showData = data.info[province];
+    initGraph(showData, data["Xvalue"], province);
+});
 
+function initSelect(provinces) {
+    $.each(provinces, function(key, value) {
+        $('#provinceSelect').append($('<option>', { value : value }).text(value));
+    });
+    var currentProvince = provinces[0];
+    initGraph(data.info[currentProvince], data["Xvalue"], currentProvince);
+}
 
 data = null;
 $(function(){
     $.ajax({
         type    :  "get",
         url     :   "../php/responseHandle.php",
-        data    :   {table : "DC1_SS_expand"},
+        data    :   {table : "DC1_TG_expand"},
         success :   function(res) {
             data = JSON.parse(res);
-            var mySerise = genSeries(data);
-            initGraph(data, mySerise);
+            initSelect(data.provinces);
         },
         error   :   function(){
             alert("get data error");
