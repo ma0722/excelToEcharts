@@ -15,11 +15,6 @@ function initGraph(data, station) {
         tooltip : {
             trigger: 'axis'
         },
-        //legend: {
-        //    data:['板卡数量（主用+备用）','固网电路域', '移动电路域(与固网电路域合并）', '扁平化HSS之间',
-        //            '电路域HSS之间', '固网扁平化LSS', 'ECP呼叫', 'C网扁平化TMSCe', '备用板卡数(容灾）', '空闲']
-        //},
-        //calculable : true,
         xAxis : [
             {
                 type :  'category',
@@ -44,7 +39,7 @@ function initGraph(data, station) {
         ],
         series : [
             {
-                name:'DC1-TG2',
+
                 type:'bar',
                 itemStyle: {
                     normal: {
@@ -98,7 +93,7 @@ $(function(){
             initSelect(data.stations);
         },
         error   :   function(){
-            alert("get data error");
+            console.log("get data error");
         }
     });
 });

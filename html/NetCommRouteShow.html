@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="../css/joint.css" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+        <title>网络话务路由动态展示</title>
+    </head>
+
+    <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand active" href="#">Excel数据展示平台</a>
+            </div>
+            <div class="navbar-right">
+                <a class="navbar-brand active" href="NetStaticShow.html">网络架构静态展示</a>
+                <a class="navbar-brand" href="NetCommRouteShow.html">网络话务路由动态展示</a>
+                <a class="navbar-brand" href="DC1_TG_config.html">DC1-TG现状配置表</a>
+                <a class="navbar-brand" href="DC1_SS_config.html">DC1-SS现状配置表</a>
+                <a class="navbar-brand" href="DC1_TG_expand.html">DC1-TG扩容需求表</a>
+                <a class="navbar-brand" href="DC1_SS_expand.html">DC1-SS扩容需求表</a>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <ul class="list-unstyled list-inline">
+                <li><button class="btn btn-default " id="button1">固网呼叫电信固网、异网用户</button></li>
+                <li><button class="btn btn-default " id="button2">C网呼叫C网、异网移动用户</button></li>
+                <li><button class="btn btn-default " id="button3">固网呼叫C网用户就近网</button></li>
+                <li><button class="btn btn-default " id="button4">C网用户呼叫电信及异网固定网用户就近网</button></li>
+            </ul>
+
+        </div>
+        <div class="col-lg-12" id="myholder"></div>
+    </div>
+    </body>
+
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/lodash.min.js"></script>
+    <script src="../js/lib/backbone-min.js"></script>
+    <script src="../js/lib/joint.js"></script>
+    <script src="../js/lib/bootstrap.js"></script>
+    <script src="../js/NetCommRouteShow.js"></script>
+
+</html>

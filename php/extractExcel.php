@@ -34,9 +34,9 @@
 
 		for ($row = $startRow; $row <= $highestRow; $row++) {
 			$col = $startCol;
-			$data[$sheet->getCell($col.$row)->getValue()] = [
-				"DC1_TG1" => $sheet->getCell(++$col.$row)->getValue(),
-				"DC1_TG2" => $sheet->getCell(++$col.$row)->getValue()
+			$data[$sheet->getCell($col.$row)->getCalculatedValue()] = [
+				"DC1_TG1" => $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"DC1_TG2" => $sheet->getCell(++$col.$row)->getCalculatedValue()
 			];
 		}
 		if ($jsonTrue) {
@@ -66,17 +66,17 @@
 
 		for ($row = $startRow; $row <= $highestRow; $row++) {
 			$col = $startCol;
-			$data[$sheet->getCell($col.$row)->getValue()] = [
-				"板卡数量（主用+备用）" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"固网电路域" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"移动电路域(与固网电路域合并）" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"扁平化HSS之间" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"电路域HSS之间" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"固网扁平化LSS" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"ECP呼叫" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"C网扁平化TMSCe" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"备用板卡数(容灾）" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"空闲" =>  $sheet->getCell(++$col.$row)->getValue(),
+			$data[$sheet->getCell($col.$row)->getCalculatedValue()] = [
+				"板卡数量（主用+备用）" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"固网电路域" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"移动电路域(与固网电路域合并）" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"扁平化HSS之间" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"电路域HSS之间" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"固网扁平化LSS" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"ECP呼叫" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"C网扁平化TMSCe" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"备用板卡数(容灾）" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"空闲" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
 			];
 		}
 		if ($jsonTrue){
@@ -112,49 +112,50 @@
 			$tmp = explode(":", $mergeCells[$i]);
 			$res = array();
 			for($char = substr($tmp[0], 0 , 1); $char <= substr($tmp[1], 0 , 1); $char++){
-				$res[] = $sheet->getCell($char.'2')->getValue();
+				$res[] = $sheet->getCell($char.'2')->getCalculatedValue();
 			}
 			$mergeCells[$i] = $res;
 		}
 
+		$name = ["DC1TG1中继", "DC1TG2中继", "DC1TG1扩容", "DC1TG2扩容"];
 		$expand = [
-			"DC1 TG1总中继需求"=>$mergeCells[0],
-			"DC1 TG2总中继需求" => $mergeCells[1],
-			"DC1 TG1扩容中继" => $mergeCells[2],
-			"DC1 TG2扩容中继" => $mergeCells[3]
+			$name[0]=>$mergeCells[0],
+			$name[1] => $mergeCells[1],
+			$name[2] => $mergeCells[2],
+			$name[3] => $mergeCells[3]
 		];
 
 		for ($row = $startRow; $row <= $highestRow; $row++) {
 			$col = $startCol;
 			$tmp = [
-				"省份" => $sheet->getCell($col.$row)->getValue(),
-				"DC1TG1可用中继" =>  $sheet->getCell(++$col.$row)->getValue(),
-				"DC1TG2可用中继" =>  $sheet->getCell(++$col.$row)->getValue(),
+				"省份" => $sheet->getCell($col.$row)->getCalculatedValue(),
+				"DC1TG1可用中继" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
+				"DC1TG2可用中继" =>  $sheet->getCell(++$col.$row)->getCalculatedValue(),
 			];
 
 			$DC1_TG1 = array();
-			for ($i = 0; $i < count($expand["DC1 TG1总中继需求"]); $i++) {
-				$DC1_TG1[$expand["DC1 TG1总中继需求"][$i]]= $sheet->getCell(++$col.$row)->getValue();
+			for ($i = 0; $i < count($expand[$name[0]]); $i++) {
+				$DC1_TG1[$expand[$name[0]][$i]]= $sheet->getCell(++$col.$row)->getCalculatedValue();
 			}
-			$tmp["DC1 TG1总中继需求"] = $DC1_TG1;
+			$tmp[$name[0]] = $DC1_TG1;
 
 			$DC1_TG2 = array();
-			for ($i = 0; $i < count($expand["DC1 TG2总中继需求"]); $i++) {
-				$DC1_TG2[$expand["DC1 TG2总中继需求"][$i]]= $sheet->getCell(++$col.$row)->getValue();
+			for ($i = 0; $i < count($expand[$name[1]]); $i++) {
+				$DC1_TG2[$expand[$name[1]][$i]]= $sheet->getCell(++$col.$row)->getCalculatedValue();
 			}
-			$tmp["DC1 TG2总中继需求"] = $DC1_TG2;
+			$tmp[$name[1]] = $DC1_TG2;
 
 			$DC1_TG1_expand = array();
-			for ($i = 0; $i < count($expand["DC1 TG1扩容中继"]); $i++) {
-				$DC1_TG1_expand[$expand["DC1 TG1扩容中继"][$i]]= $sheet->getCell(++$col.$row)->getValue();
+			for ($i = 0; $i < count($expand[$name[2]]); $i++) {
+				$DC1_TG1_expand[$expand[$name[2]][$i]]= $sheet->getCell(++$col.$row)->getCalculatedValue();
 			}
-			$tmp["DC1 TG1扩容中继"] = $DC1_TG1_expand;
+			$tmp[$name[2]] = $DC1_TG1_expand;
 
 			$DC1_TG2_expand = array();
-			for ($i = 0; $i < count($expand["DC1 TG2扩容中继"]); $i++) {
-				$DC1_TG2_expand[$expand["DC1 TG2扩容中继"][$i]]= $sheet->getCell(++$col.$row)->getValue();
+			for ($i = 0; $i < count($expand[$name[3]]); $i++) {
+				$DC1_TG2_expand[$expand[$name[3]][$i]]= $sheet->getCell(++$col.$row)->getCalculatedValue();
 			}
-			$tmp["DC1 TG2扩容中继"] = $DC1_TG2_expand;
+			$tmp[$name[3]] = $DC1_TG2_expand;
 
 			$data[] = $tmp;
 		}
@@ -170,7 +171,7 @@
 				$tmp = array();
 				$col =$thisCol;
 				for ( ; $col <= $highestCol; $col++) {
-					$tmp[] = $sheet->getCell($col.$row)->getValue();
+					$tmp[] = $sheet->getCell($col.$row)->getCalculatedValue();
 				}
 				$info[$res["provinces"][$i]] = $tmp;
 				$row++;
@@ -208,7 +209,7 @@
 			$col = $startCol;
 			$tmp = array();
 			for ($i = 0; $i < count($colNames); $i++ ){
-				$tmp[$colNames[$i]] =  $sheet->getCell($col.$row)->getValue();
+				$tmp[$colNames[$i]] =  $sheet->getCell($col.$row)->getCalculatedValue();
 				$col++;
 			}
 			$data[] = $tmp;

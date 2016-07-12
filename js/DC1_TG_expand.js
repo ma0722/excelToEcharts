@@ -42,7 +42,6 @@ function initGraph(data, Xvalue, province) {
         ],
         series : [
             {
-                name:'DC1-TG1',
                 type:'bar',
                 itemStyle: {
                     normal: {
@@ -97,7 +96,7 @@ $(function(){
             initSelect(data.provinces);
         },
         error   :   function(){
-            alert("get data error");
+            console.log("get data error");
         }
     });
 });

@@ -15,10 +15,19 @@ function initGraph(data, mySeries) {
             text : 'DC1-SS 扩容需求表'
         },
         tooltip : {
-            trigger: 'axis'
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
         },
         legend: {
             data: legend
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
         },
         //calculable : true,
         xAxis : [
@@ -74,7 +83,7 @@ function genSeries(data){
             itemStyle: {
                 normal: {
                     label: {
-                        show: true,
+                        //show: true,
                         textStyle: {
                             color: '#800080'
                         }
@@ -101,7 +110,7 @@ $(function(){
             initGraph(data, mySerise);
         },
         error   :   function(){
-            alert("get data error");
+            console.log("get data error");
         }
     });
 });

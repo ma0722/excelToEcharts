@@ -13,10 +13,19 @@ function initGraph(data) {
             text : 'DC1—TG现状配置表'
         },
         tooltip : {
-            trigger: 'axis'
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
         },
         legend: {
             data:['DC1-TG1','DC1-TG2']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
         },
         //calculable : true,
         xAxis : [
@@ -47,7 +56,7 @@ function initGraph(data) {
                 itemStyle: {
                     normal: {
                         label: {
-                            show: true,
+                            //show: true,
                             textStyle: {
                                 color: '#800080'
                             }
@@ -62,7 +71,7 @@ function initGraph(data) {
                 itemStyle: {
                     normal: {
                         label: {
-                            show: true,
+                            //show: true,
                             textStyle: {
                                 color: '#800080'
                             }
@@ -100,7 +109,7 @@ $(function(){
             initGraph(data);
         },
         error   :   function(){
-            alert("get data error");
+            console.log("get data error");
         }
     });
 });
