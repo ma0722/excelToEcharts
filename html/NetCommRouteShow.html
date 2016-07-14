@@ -4,6 +4,7 @@
 
         <link rel="stylesheet" type="text/css" href="../css/joint.css" />
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/home.css" />
         <title>网络话务路由动态展示</title>
     </head>
 
@@ -26,17 +27,18 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="col-lg-12">
+        <div class="col-lg-offset-2 col-lg-10">
             <ul class="list-unstyled list-inline">
-                <li><button class="btn btn-default " id="button1">固网呼叫电信固网、异网用户</button></li>
-                <li><button class="btn btn-default " id="button2">C网呼叫C网、异网移动用户</button></li>
-                <li><button class="btn btn-default " id="button3">固网呼叫C网用户就近网</button></li>
-                <li><button class="btn btn-default " id="button4">C网用户呼叫电信及异网固定网用户就近网</button></li>
+                <li><button class="btn" id="button1">固网呼叫电信固网、异网用户</button></li>
+                <li><button class="btn" id="button2">C网呼叫C网、异网移动用户</button></li>
+                <li><button class="btn" id="button3">固网呼叫C网用户就近网</button></li>
+                <li><button class="btn" id="button4">C网用户呼叫电信及异网固定网用户就近网</button></li>
             </ul>
 
         </div>
-        <div class="col-lg-12" id="myholder"></div>
+        <div class="col-lg-offset-1 col-lg-10" id="myholder"></div>
     </div>
+
     </body>
 
     <script src="../js/lib/jquery.min.js"></script>
