@@ -60,11 +60,12 @@ var link1 = new joint.dia.Link({
     target: { id: ib5.id },
     attrs: {
         '.connection': {
-            stroke: '#7CFC00',
+            stroke: '#9ACD32',
             'stroke-width': 3
         },
         '.marker-target': {
-            fill: '#333333',
+            fill: '#9ACD32',
+            stroke: 'none',
             d: 'M 10 0 L 0 5 L 10 10 z'
         }
     }
@@ -87,7 +88,8 @@ var link2 = new joint.dia.Link({
             'stroke-width': 3
         },
         '.marker-target': {
-            fill: '#333333',
+            fill: '#9400D3',
+            stroke: 'none',
             d: 'M 10 0 L 0 5 L 10 10 z'
         }
     }
@@ -105,11 +107,12 @@ var link3 = new joint.dia.Link({
     target: { id: ib4.id },
     attrs: {
         '.connection': {
-            stroke: '#6959CD',
+            stroke: '#87CEEB',
             'stroke-width': 3
         },
         '.marker-target': {
-            fill: '#333333',
+            fill: '#87CEEB',
+            stroke: 'none',
             d: 'M 10 0 L 0 5 L 10 10 z'
         }
     }
@@ -122,46 +125,47 @@ link3.label(0, {
     }
 });
 
-var link4 = new joint.dia.Link({
-    source: { id: ib1.id },
-    target: { id: ib2.id },
-    attrs: {
-        '.connection': {
-            stroke: '#7CFC00',
-            'stroke-width': 3
-        },
-        '.marker-target': {
-            fill: '#333333',
-            d: 'M 10 0 L 0 5 L 10 10 z'
-        }
-    }
-});
-
-var link5 = new joint.dia.Link({
-    source: { id: ib3.id },
-    target: { id: ib4.id },
-    attrs: {
-        '.connection': {
-            stroke: '#9400D3',
-            'stroke-width': 3
-        },
-        '.marker-target': {
-            fill: '#333333',
-            d: 'M 10 0 L 0 5 L 10 10 z'
-        }
-    }
-});
+//var link4 = new joint.dia.Link({
+//    source: { id: ib1.id },
+//    target: { id: ib2.id },
+//    attrs: {
+//        '.connection': {
+//            stroke: '#7CFC00',
+//            'stroke-width': 3
+//        },
+//        '.marker-target': {
+//            fill: '#333333',
+//            d: 'M 10 0 L 0 5 L 10 10 z'
+//        }
+//    }
+//});
+//
+//var link5 = new joint.dia.Link({
+//    source: { id: ib3.id },
+//    target: { id: ib4.id },
+//    attrs: {
+//        '.connection': {
+//            stroke: '#9400D3',
+//            'stroke-width': 3
+//        },
+//        '.marker-target': {
+//            fill: '#333333',
+//            d: 'M 10 0 L 0 5 L 10 10 z'
+//        }
+//    }
+//});
 
 var link6 = new joint.dia.Link({
-    source: { id: ib4.id },
-    target: { id: ib2.id },
+    source: { x: 1000, y: 490 },
+    target: { x: 328, y: 490 },
     attrs: {
         '.connection': {
-            stroke: '#EEEE00',
+            stroke: '#EE9A00',
             'stroke-width': 3
         },
         '.marker-target': {
-            fill: '#333333',
+            fill: '#EE9A00',
+            stroke: 'none',
             d: 'M 10 0 L 0 5 L 10 10 z'
         }
     }
@@ -180,8 +184,8 @@ flag1 = false;
 flag2 = false;
 flag3 = false;
 flag4 = false;
-linkGroup1 = [link1, link4];
-linkGroup2 = [link2, link5];
+linkGroup1 = [link1];
+linkGroup2 = [link2];
 linkGroup3 = [link3];
 linkGroup4 = [link6];
 $("#button1").click(function(){
@@ -212,11 +216,6 @@ $("#button3").click(function(){
         flag3 = !flag3;
         $("#button3").removeClass("button3");
     } else{
-        if (flag4) {
-            flag4 = !flag4;
-            graph.removeCells(linkGroup4);
-            $("#button4").removeClass("button4");
-        }
         graph.addCell(linkGroup3);
         flag3 = !flag3;
         $("#button3").addClass("button3");
@@ -228,11 +227,6 @@ $("#button4").click(function(){
         flag4 = !flag4;
         $("#button4").removeClass("button4");
     } else{
-        if (flag3) {
-            flag3 = !flag3;
-            graph.removeCells(linkGroup3);
-            $("#button3").removeClass("button3");
-        }
         graph.addCell(linkGroup4);
         flag4 = !flag4;
         $("#button4").addClass("button4");

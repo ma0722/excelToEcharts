@@ -14,14 +14,18 @@
 }
 
 .button1{
-	background-color: #7CFC00;
+	background-color: #9ACD32;
 }
 .button2{
 	background-color: #E066FF;
 }
 .button3{
-	background-color: #6959CD;
+	background-color: #87CEEB;
 }
 .button4{
-	background-color: #EEEE00;
+	background-color: #EE9A00;
+}
+
+.myActive{
+	color:#555;background-color:#e7e7e7
 }
