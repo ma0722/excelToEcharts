@@ -2,9 +2,137 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>省际规划</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/home.css" rel="stylesheet">
 </head>
 <body>
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">省际规划</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse pull-right ">
+                <ul class="nav navbar-nav">
+                    <li><a href="#about">首页</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DC1软交换网络规划<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./NetStaticShow.html">网络架构静态展示</a></li>
+                            <li><a href="./NetCommRouteShow.html">网络话务路由动态展示</a></li>
+                            <li><a href="./DC1_TG_config.html">网络容量</a></li>
+                            <li><a href="./DC1_TG_expand.html">网络规划</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">未来VoLTE IMS网络规划<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./NetStaticShow.html">网络架构静态展示</a></li>
+                            <li><a href="./NetCommRouteShow.html">网络话务路由动态展示</a></li>
+                            <li><a href="./DC1_TG_config.html">网络容量</a></li>
+                            <li><a href="./DC1_TG_expand.html">网络规划</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+        <div id="myCarousel" class="carousel row" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="first-slide" src="../image/11.png" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="second-slide" src="../image/12.png" alt="Second slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="third-slide" src="../image/13.png" alt="Third slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
 
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="center-block">
+                <p class="lead">DC1软交换网络主要是中国电信目前的骨干交换网络，承载跨省的长途话务，包括固定电话用户及移动电话用户的长途业务。
+                    DC1软交换网络规划软件在界面需要展现四大功能，网络架构静态展示、网络话务路由动态展示、网络容量筛选并显示及网络规划结果筛选并显示。每一个部分都可以点击进入下一级，这四大功能下一级需要实现的具体功能如右侧所示：
+                </p>
+                </div>
+            </div>
+            <div class="col-lg-offset-4">
+                <div class="col-lg-6">
+                    <img class="img-circle" src='../image/a.png' alt="网络架构静态展示" width="140" height="140">
+                    <h2>网络架构静态展示</h2>
+                    <p>这部分的功能需要主要是展示一张静态的DC1网络的架构图</p>
+                    <p><a class="btn btn-info active" role="button" href="./NetStaticShow.html">详情</a></p>
+                    <div class="col-md-12">
+                        <div style="padding: 30px"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-circle" src='../image/b.png' alt="网络话务路由动态展示" width="140" height="140">
+                    <h2>网络话务路由动态展示</h2>
+                    <p>这部分的功能需求是动态展示DC1所承载的固网及移动用户跨省长途话务的路由</p>
+                    <p><a class="btn btn-info active" role="button" href="./NetCommRouteShow.html">详情</a></p>
+                    <div class="col-md-12">
+                        <div style="padding: 30px"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-circle" src='../image/c.png' alt="网络容量" width="140" height="140">
+                    <h2>网络容量</h2>
+                    <p>这部分的功能需求主要是显示DC1-SS及DC1-TG两类网元的网络容量。需要依据不同大区节点，不同省份等地理位置信息筛选网元，并显示现网网元容量；也可以依据不同网元类型显示各大区或者各省网元容量</p>
+                    <p><a class="btn btn-info active" role="button" href="./DC1_TG_config.html">详情</a></p>
+                    <div class="col-md-12">
+                        <div style="padding: 30px"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-circle" src='../image/c.png' alt="网路规划" width="140" height="140">
+                    <h2>网路规划</h2>
+                    <p>显示excel规划表格计算后得到的DC1-SS及DC1-TG扩容需求、建设项目及投资等</p>
+                    <p><a class="btn btn-info active" role="button" href="./DC1_TG_expand.html">详情</a></p>
+                    <div class="col-md-12">
+                        <div style="padding: 30px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
+<script src="../js/lib/jquery.min.js"></script>
+<script src="../js/lib/bootstrap.js"></script>
 </html>
